@@ -78,3 +78,6 @@ input
 
 output
    - `data`:   nek5000 data ordered as `{iel,inode,[x|y|(z)|u|v|(w)|p|T|s_i]}`
+
+
+This package has been also tested with Octave.
