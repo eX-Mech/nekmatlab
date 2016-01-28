@@ -7,6 +7,8 @@
 
 function [status,err] = test_nekmatlab
 
+addpath('../')
+
 %% Generate test flow field
 lr1o = [5 5 1]';
 
