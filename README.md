@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/nfabbiane/nekmatlab.svg?branch=master)](https://travis-ci.org/nfabbiane/nekmatlab/builds)
-[![Coverage Status](https://coveralls.io/repos/github/nfabbiane/nekmatlab/badge.svg?branch=master)](https://coveralls.io/github/nfabbiane/nekmatlab?branch=master)
 
 # NEK5000 utilities for MATLAB
 
