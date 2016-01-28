@@ -1,6 +1,6 @@
 # NEK5000 utilities for MATLAB
 
-Nicolò Fabbiane <br /> 
+Jacopo Canton and Nicolò Fabbiane (in alphabetical order) <br /> 
 January, 2016
 
 
