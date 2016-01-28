@@ -4,6 +4,17 @@ function varargout = reshapenek(data,nelx,nely)
 %
 %   [meshgrid1,meshgrid2,...] = reshapenek(data,nelx,nely)
 %
+%   INPUT
+%   - data:   nek5000 data ordered as (iel,inode,[x|y|(z)|u|v|(w)|p|T|s_i])
+%   - nelx:   number of element in the first direction (second index)
+%   - nely:   number of element in the second direction (first index)
+%
+%   OUTPUT
+%   - meshgridn: meshgrid of the n-th field in data
+%
+% Last edit: 20151028 Nicolo Fabbiane (nicolo@mech.kth.se)
+%
+
 
 % get dimension and check number of elements
 [nel,N2,nfld] = size(data); N = sqrt(N2);

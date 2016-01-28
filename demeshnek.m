@@ -1,8 +1,17 @@
 function data = demeshnek(mesh,lr1)
 %
-% Demesh a meshgrid to nekdata
+% Demesh a meshgrid to data
 %
-%   [nekdata] = reshapenek(mesh,lr1)
+%   [data] = reshapenek(mesh,lr1)
+%
+%   INPUT
+%   - mesh:   meshgrid (fields along third index)
+%   - lr1:    element-size vector (lx1,ly1,lz1)
+%
+%   OUTPUT
+%   - data:   nek5000 data ordered as (iel,inode,[x|y|(z)|u|v|(w)|p|T|s_i])
+%
+% Last edit: 20151028 Nicolo Fabbiane (nicolo@mech.kth.se)
 %
 
 if length(lr1) == 1

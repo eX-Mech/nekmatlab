@@ -48,3 +48,30 @@ input
 
 output
    - `status`: status (< 0 something went wrong)
+
+
+### reshapenek.m
+Reshape data from nekread to a meshgrid
+
+`[mesh1,mesh2,...] = reshapenek(data,nelx,nely)`
+
+input
+   - `data`:   nek5000 data ordered as `{iel,inode,[x|y|(z)|u|v|(w)|p|T|s_i]}`
+   - `nelx`:   number of element in the first direction (second index)
+   - `nely`:   number of element in the second direction (first index)
+
+output
+   - `meshn`:  meshgrid of the n-th field in data
+
+
+### demeshnek.m
+Demesh a meshgrid to data
+
+`[data] = reshapenek(mesh,lr1)`
+
+input
+   - `mesh`:   meshgrid (fields along third index)
+   - `lr1`:    element-size vector `[lx1,ly1,lz1]`
+
+output
+   - `data`:   nek5000 data ordered as `{iel,inode,[x|y|(z)|u|v|(w)|p|T|s_i]}`
