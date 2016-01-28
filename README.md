@@ -9,12 +9,12 @@ January, 2016
 ### readnek.m
 This function reads binary data from the nek5000 file format
 
- `[data,lr1,elmap,time,istep,fields,emode,wdsz,etag,header,status] = readnek(fname)`
+`[data,lr1,elmap,time,istep,fields,emode,wdsz,etag,header,status] = readnek(fname)`
 
-   INPUT
+input
    - `fname:  name of the file 
 
-   OUTPUT
+output
    - `data`:   nek5000 data ordered as (iel,inode,[x|y|(z)|u|v|(w)|p|T|s_i])
    - `lr1`:    element-size vector (lx1,ly1,lz1)
    - `elmap`:  reading/writing map of the elements in the file
