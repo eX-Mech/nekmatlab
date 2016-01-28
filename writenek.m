@@ -81,13 +81,13 @@ if outfile == -1, disp(message), status = -1; return, end
 header = sprintf('#std %1i %2i %2i %2i %10i %10i %20.13E %9i %6i %6i %s\n',...
                  wdsz,lr1(1),lr1(2),lr1(3),nel,nel,time,istep,fid,nf,fields);
 header(end+1:132) = ' ';
-fwrite(outfile,header,'*char');
+fwrite(outfile,header,'char');
 %
 % write endian tag
-fwrite(outfile,etag,'*float32');
+fwrite(outfile,etag,'float32');
 %
 % write element map
-fwrite(outfile,elmap,'*int32');
+fwrite(outfile,elmap,'int32');
 
 %--------------------------------------------------------------------------
 % WRITE DATA
@@ -95,9 +95,9 @@ fwrite(outfile,elmap,'*int32');
 %
 % word size (double/single precision)
 if (wdsz == 4)
-    realtype = '*float32';
+    realtype = 'float32';
 elseif (wdsz == 8)
-    realtype = '*float64';
+    realtype = 'float64';
 else
     fprintf('ERROR: could not interpret real type (wdsz = %i)',wdsz);
     status = -2; return

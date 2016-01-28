@@ -79,4 +79,4 @@ err(4) = max(errwr) > 1e-11;
 
 
 %% Final status
-status = sum(err)==0;
+status = sum(err);
