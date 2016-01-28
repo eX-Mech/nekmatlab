@@ -5,4 +5,4 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install octave
 script:
-  - cd tests && /usr/bin/octave -q --eval test_nekmatlab.m
+  - cd tests && /usr/bin/octave -q --eval test_nekmatlab
