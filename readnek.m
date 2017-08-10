@@ -1,4 +1,4 @@
-function [data,lr1,elmap,time,istep,fields,emode,wdsz,etag,header,status] = readnek(fname)
+function [data,lr1,elmap,time,istep,fields,emode,wdsz,etag,header,status,metax,metau,metap,metat] = readnek(fname)
 %
 % This function reads binary data from the nek5000 file format
 %
@@ -19,9 +19,13 @@ function [data,lr1,elmap,time,istep,fields,emode,wdsz,etag,header,status] = read
 %   - etag:   tag for endian indentification
 %   - header: header of the file (string)
 %   - status: status (< 0 something went wrong)
+%   - metax:  metadata for coordinates
+%   - metau:  metadata for velocity field
+%   - metap:  metadata for pressure field
+%   - metat:  metadata for temperature field
 %
 %
-% Last edit: 20151028 Nicolo Fabbiane (nicolo@mech.kth.se)
+% Last edit: 20170810 Jacopo Canton (jcanton@mech.kth.se)
 %
 
 %--------------------------------------------------------------------------
@@ -126,6 +130,7 @@ if sum(fields == 'T') > 0
 end
 if sum(fields == 'S') > 0
   var(5) = 0; % TODO: scalars not implemented
+  disp('Passive scalars are not implemented')
 end
 nfields = sum(var);
 %
@@ -144,6 +149,34 @@ for ivar = 1:length(var)
         end
     end
 end
+
+%--------------------------------------------------------------------------
+% READ "METADATA": max and min of every field in every element
+%--------------------------------------------------------------------------
+% this is forced to being written in single precision
+if ndim == 3
+	if var(1) ~= 0
+		metax = fread(infile,2*ndim*nel,'*float32');
+	else
+		metax = [];
+	end
+	if var(2) ~= 0
+		metau = fread(infile,2*ndim*nel,'*float32');
+	else
+		metau = [];
+	end
+	if var(3) ~= 0
+		metap = fread(infile,2*nel,'*float32');
+	else
+		metap = [];
+	end
+	if var(4) ~= 0
+		metat = fread(infile,2*nel,'*float32');
+	else
+		metat = [];
+	end
+end
+
 
 %--------------------------------------------------------------------------
 % CLOSE FILE

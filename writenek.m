@@ -20,7 +20,7 @@ function status = writenek(fname,data,lr1,elmap,time,istep,fields,emode,wdsz,eta
 %   - status: status (< 0 something went wrong)
 %
 %
-% Last edit: 20151028 Nicolo Fabbiane (nicolo@mech.kth.se)
+% Last edit: 20170810 Jacopo Canton (jcanton@mech.kth.se)
 %
 
 %--------------------------------------------------------------------------
@@ -55,6 +55,7 @@ if sum(fields == 'T') > 0
 end
 if sum(fields == 'S') > 0
   var(5) = 0; % TODO: scalars not implemented
+  disp('Passive scalars are not implemented')	
 end
 nfields = sum(var);
 %
@@ -112,6 +113,24 @@ for ivar = 1:length(var)
         end
     end
 end
+
+%--------------------------------------------------------------------------
+% WRITE "METADATA": max and min of every field in every element
+%--------------------------------------------------------------------------
+% this is forced to being written in single precision
+if ndim == 3
+	for ivar = 1:length(var)
+	    idim0 = sum(var(1:ivar-1));
+	    for iel = elmap
+	        for idim = (1:var(ivar))+idim0
+	            %fwrite(outfile,data(iel,:,idim),realtype);
+					fwrite(outfile, min(data(iel,:,idim)), '*float32');
+					fwrite(outfile, max(data(iel,:,idim)), '*float32');
+	        end
+	    end
+	end
+end
+
 
 %--------------------------------------------------------------------------
 % CLOSE FILE
