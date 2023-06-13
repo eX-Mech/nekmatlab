@@ -23,6 +23,7 @@ function [data,lr1,elmap,time,istep,fields,emode,wdsz,etag,header,status,metax,m
 %   - metau:  metadata for velocity field
 %   - metap:  metadata for pressure field
 %   - metat:  metadata for temperature field
+%   - metas:  metadata for passive scalar field(s)
 %
 %
 % Last edit: 20170810 Jacopo Canton (jcanton@mech.kth.se)
@@ -45,6 +46,7 @@ metax = [];
 metau = [];
 metap = [];
 metat = [];
+metas = [];
 
 %--------------------------------------------------------------------------
 %  OPEN THE FILE
@@ -134,8 +136,8 @@ if sum(fields == 'T') > 0
   var(4) = 1;
 end
 if sum(fields == 'S') > 0
-  var(5) = 0; % TODO: scalars not implemented
-  disp('Passive scalars are not implemented')
+  ids = find(fields == 'S');
+  var(5) = sscanf(fields(ids+1:ids+2),'%d',1);
 end
 nfields = sum(var);
 %
@@ -179,6 +181,11 @@ if ndim == 3
 		metat = fread(infile,2*nel,'*float32');
 	else
 		metat = [];
+	end
+	if var(5) ~= 0
+		metas = fread(infile,2*nel*var(5),'*float32');
+	else
+		metas = [];
 	end
 end
 

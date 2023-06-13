@@ -54,8 +54,8 @@ if sum(fields == 'T') > 0
   var(4) = 1;
 end
 if sum(fields == 'S') > 0
-  var(5) = 0; % TODO: scalars not implemented
-  disp('Passive scalars are not implemented')	
+  ids = find(fields == 'S');
+  var(5) = sscanf(fields(ids+1:ids+2),'%d',1);
 end
 nfields = sum(var);
 %
@@ -105,12 +105,18 @@ else
 end
 %
 % write data
-for ivar = 1:length(var)
+for ivar = 1:4  % exclude passive scalar
     idim0 = sum(var(1:ivar-1));
     for iel = elmap
         for idim = (1:var(ivar))+idim0
             fwrite(outfile,data(iel,:,idim),realtype);
         end
+    end
+end
+idim0 = sum(var(1:4)); % write passive scalars here
+for idim = (1:var(5))+idim0
+    for iel = elmap
+        fwrite(outfile,data(iel,:,idim),realtype);
     end
 end
 
